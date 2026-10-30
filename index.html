@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio | 1st Year BSIT</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Blood Red & Solid Black Theme Colors */
+            --blood-red: #8b0000;
+            --dark-blood-red: #660000;
+            --bright-blood-red: #a80000;
+            --light-red-accent: rgba(139, 0, 0, 0.25);
+            
+            --solid-black: #050505;
+            --card-black: #121212;
+            --border-dark: #222222;
+            
+            --text-light: #f1f1f1;
+            --text-muted: #a0a0a0;
+            --radius: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--solid-black);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blood-red);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--bright-blood-red);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* --- Hero Section with Background JPG --- */
+        .hero {
+            padding: 160px 8% 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(5, 5, 5, 0.85) 0%, rgba(139, 0, 0, 0.4) 50%, var(--solid-black) 100%),
+                        url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            gap: 40px;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--light-red-accent);
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--blood-red);
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .hero-text h1 span {
+            color: var(--bright-blood-red);
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 26px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--blood-red);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--bright-blood-red);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1.5px solid var(--border-dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--blood-red);
+            color: var(--bright-blood-red);
+        }
+
+        /* --- Main Content Sections --- */
+        section {
+            padding: 90px 8%;
+            background-color: var(--solid-black);
+        }
+
+        .section-header {
+            margin-bottom: 45px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            color: var(--text-light);
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background-color: var(--blood-red);
+            border-radius: 2px;
+            box-shadow: 0 0 8px var(--blood-red);
+        }
+
+        /* --- About Grid with Personal Photo JPG --- */
+        .about-card {
+            background: var(--card-black);
+            border-radius: var(--radius);
+            padding: 35px;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .profile-photo-container {
+            width: 100%;
+            height: 320px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid var(--blood-red);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+            background: #1a1a1a;
+        }
+
+        .profile-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .about-details p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .info-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .info-list li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .info-list li strong {
+            color: var(--text-light);
+        }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-box {
+            background: var(--card-black);
+            border: 1px solid var(--border-dark);
+            padding: 30px;
+            border-radius: var(--radius);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .skill-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--blood-red);
+        }
+
+        .skill-box-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .skill-box-header i {
+            font-size: 1.5rem;
+            color: #ff4d4d;
+            background: var(--light-red-accent);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .skill-box-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-item {
+            background: #1a1a1a;
+            color: var(--text-light);
+            border: 1px solid var(--border-dark);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* --- Projects Grid --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-black);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-dark);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+            border-color: var(--blood-red);
+        }
+
+        .project-banner {
+            height: 160px;
+            background: #0d0d0d;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .project-banner.blood-accent {
+            background: linear-gradient(135deg, var(--dark-blood-red) 0%, var(--solid-black) 100%);
+            border-bottom: 2px solid var(--blood-red);
+        }
+
+        .project-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tech-micro {
+            font-size: 0.75rem;
+            background: var(--light-red-accent);
+            color: #ff4d4d;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(139, 0, 0, 0.4);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* --- Contact Section & Form --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            background: var(--card-black);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-dark);
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-detail-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--light-red-accent);
+            color: #ff4d4d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--blood-red);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #181818;
+            border: 1px solid var(--border-dark);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--blood-red);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* --- Interactive Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-black);
+            max-width: 650px;
+            width: 100%;
+            border-radius: var(--radius);
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--blood-red);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-body pre {
+            background: #000;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin-top: 15px;
+            border: 1px solid var(--border-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--solid-black);
+            color: var(--text-muted);
+            padding: 30px 8%;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 2px solid var(--blood-red);
+        }
+
+        footer a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--solid-black);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-dark);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero {
+                flex-direction: column;
+                padding: 120px 5% 60px;
+                text-align: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .about-card, .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+            section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <a href="#" class="logo"><i class="fa-solid fa-terminal"></i> John Carl.Asilo</a>
+        <div class="menu-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section with Background JPG -->
+    <section class="hero">
+        <div class="hero-text">
+            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> 1st Year BSIT Student</span>
+            <h1>Building core tech skills in <span>Web & Software</span></h1>
+            <p>Welcome to my academic portfolio. I am currently pursuing my Bachelor of Science in Information Technology, focusing on frontend design, algorithm fundamentals, and database systems.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Personal Photo JPG -->
+    <section id="about">
+        <div class="section-header">
+            <h2>About Me</h2>
+        </div>
+        <div class="about-card">
+            <div class="profile-photo-container">
+                <!-- Replace 'profile.jpg' with your actual personal image file name -->
+                <img src="as.jpg" alt="Personal Photo of BSIT Student" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop'">
+            </div>
+            <div class="about-details">
+                <h3>Passionate about learning IT fundamentals</h3>
+                <p>Hello! I am a First-Year BS Information Technology student. My focus is centered around mastering foundational programming paradigms in C/C++ and Python while honing modern responsive web development techniques.</p>
+                <p>I actively practice logic formulation, core version control workflows with Git, and database modeling concepts.</p>
+                
+                <ul class="info-list">
+                    <li><strong>Degree:</strong> BS in Information Technology</li>
+                    <li><strong>Year Level:</strong> 1st Year (Freshman)</li>
+                    <li><strong>Core Interest:</strong> Frontend & Database Systems</li>
+                    <li><strong>Status:</strong> Open to Academic Collaborations</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header">
+            <h2>Technical Skills</h2>
+        </div>
+        <div class="skills-grid">
+            
+            <!-- Programming Languages -->
+            <div class="skill-box">
+                <div class="skill-box-header">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>Programming Languages</h3>
+                </div>
+                <div class="tag-cloud">
+                    <span class="tag-item">C/C++ BASICS</span>
+                    <span class="tag-item">Python</span>
+                </div>
+            </div>
+
+            <!-- Frontend & Web Design -->
+            <div class="skill-box">
+                <div class="skill-box-header">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                    <h3>Frontend & Web Design</h3>
+                </div>
+                <div class="tag-cloud">
+                    <span class="tag-item">HTML5</span>
+                    <span class="tag-item">CSS3</span>
+                    <span class="tag-item">Responsive Design</span>
+                    <span class="tag-item">UI Layouts</span>
+                </div>
+            </div>
+
+            <!-- Databases & Tools -->
+            <div class="skill-box">
+                <div class="skill-box-header">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h3>Databases & Tools</h3>
+                </div>
+                <div class="tag-cloud">
+                    <span class="tag-item">Git</span>
+                    <span class="tag-item">GitHub</span>
+                    <span class="tag-item">Database Basics</span>
+                    <span class="tag-item">VS Code</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header">
+            <h2>Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-banner blood-accent">
+                    <i class="fa-solid fa-address-card"></i>
+                </div>
+                <div class="project-body">
+                    <h3>Student Registration Form</h3>
+                    <p>A web form styled with plain CSS featuring form controls, selection fields, inputs, and validation checks for student data entry.</p>
+                    <div class="project-tech">
+                        <span class="tech-micro">HTML5</span>
+                        <span class="tech-micro">CSS3</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-sm btn-primary" onclick="openModal('proj1')"><i class="fa-solid fa-eye"></i> Details</button>
+                        <a href="https://github.com" target="_blank" class="btn-sm btn-outline"><i class="fa-brands fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-banner blood-accent">
+                    <i class="fa-solid fa-file-user"></i>
+                </div>
+                <div class="project-body">
+                    <h3>Personal Resume Page</h3>
+                    <p>A static digital resume page displaying education background, skills, and coursework formatted neatly using structured CSS layout rules.</p>
+                    <div class="project-tech">
+                        <span class="tech-micro">HTML</span>
+                        <span class="tech-micro">Web Design</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-sm btn-primary" onclick="openModal('proj2')"><i class="fa-solid fa-eye"></i> Details</button>
+                        <a href="https://github.com" target="_blank" class="btn-sm btn-outline"><i class="fa-brands fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-banner blood-accent">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <div class="project-body">
+                    <h3>Personal Portfolio Website</h3>
+                    <p>A responsive multi-section personal portfolio website managed via Git and hosted on GitHub Pages showcasing early IT projects.</p>
+                    <div class="project-tech">
+                        <span class="tech-micro">Git</span>
+                        <span class="tech-micro">GitHub</span>
+                        <span class="tech-micro">CSS</span>
+                    </div>
+                    <div class="project-actions">
+                        <button class="btn-sm btn-primary" onclick="openModal('proj3')"><i class="fa-solid fa-eye"></i> Details</button>
+                        <a href="https://github.com" target="_blank" class="btn-sm btn-outline"><i class="fa-brands fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <h2>Get In Touch</h2>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Let's Connect</h3>
+                <p>I'm open to discussing course assignments, group projects, or beginner tech inquiries. Feel free to send a message!</p>
+                
+                <div class="contact-detail-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <strong style="display:block; font-size: 0.85rem;">Email</strong>
+                        <span style="color: var(--text-muted); font-size:0.9rem;">asilojohncarl@gmail.com</span>
+                    </div>
+                </div>
+                <div class="contact-detail-item">
+                    <i class="fa-solid fa-code-branch"></i>
+                    <div>
+                        <strong style="display:block; font-size: 0.85rem;">GitHub</strong>
+                        <span style="color: var(--text-muted); font-size:0.9rem;">github.com/JOHNCARLASILO</span>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="portfolio-form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email Address" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" placeholder="Your Message..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="year"></span> John Carl Tome Asilo | BSIT-1A</p>
+    </footer>
+
+    <!-- Interactive Modal Popup -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Content inserted via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Dynamic current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile nav when link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Modal Details Data
+        const projectData = {
+            proj1: {
+                title: "Student Registration Form",
+                description: "Built as an HTML/CSS assignment to practice semantic markup and structural styling. Features input validation attributes, dropdown selections, and clean field grouping.",
+                snippet: `<form action="/submit" method="POST">
+  <label for="student_id">Student ID:</label>
+  <input type="text" id="student_id" name="student_id" required>
+  
+  <label for="course">Course & Major:</label>
+  <select id="course" name="course">
+    <option value="bsit">BS Information Technology</option>
+    <option value="bscs">BS Computer Science</option>
+  </select>
+</form>`
+            },
+            proj2: {
+                title: "Personal Resume Page",
+                description: "A structured single-page resume layout designed to display academic background, introductory C++/Python programming modules, and contact details.",
+                snippet: `/* Sample CSS Layout Styling */
+.resume-section {
+  background: #121212;
+  border-left: 4px solid #8b0000;
+  padding: 15px;
+  margin-bottom: 20px;
+}`
+            },
+            proj3: {
+                title: "Personal Website & Portfolio",
+                description: "This portfolio website itself! Created to establish an online presence. Managed using Git commands (commit, push, branch) and published via GitHub Pages.",
+                snippet: `# Git Workflow commands used:
+git init
+git add .
+git commit -m "Initial portfolio commit"
+git push origin main`
+            }
+        };
+
+        const modal = document.getElementById('projectModal');
+        const modalBody = document.getElementById('modalBody');
+
+        function openModal(key) {
+            const data = projectData[key];
+            if(!data) return;
+
+            modalBody.innerHTML = `
+                <h3 style="font-size: 1.4rem; margin-bottom: 10px; color: #ff4d4d;">${data.title}</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">${data.description}</p>
+                <h4 style="margin-top: 15px; font-size: 0.9rem; color: var(--text-light);">Code Snippet / Structure:</h4>
+                <pre><code>${escapeHtml(data.snippet)}</code></pre>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        // Form Submission Mockup
+        document.getElementById('portfolio-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent successfully (Mockup Action).');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
